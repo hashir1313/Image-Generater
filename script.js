@@ -8,11 +8,50 @@ const styleSelect = document.getElementById("style-select");
 const sizeSelect = document.getElementById("size-select");
 const loadingDiv = document.getElementById("loading");
 const imageContainer = document.querySelector(".image-container");
-const aboutLink = document.getElementById("about-link");
-const aboutModal = document.getElementById("about-modal");
-const closeModal = document.querySelector(".close");
 
 async function query(prompt, style, size) {
+    let stylePrompt;
+    switch(style) {
+        case 'realistic':
+            stylePrompt = 'photorealistic, highly detailed, professional photography';
+            break;
+        case 'cartoon':
+            stylePrompt = 'cartoon style, vibrant colors, exaggerated features';
+            break;
+        case 'anime':
+            stylePrompt = 'anime style, Japanese animation, big eyes, colorful hair';
+            break;
+        case '3d-render':
+            stylePrompt = '3D rendered image, computer graphics, realistic textures';
+            break;
+        case 'digital-painting':
+            stylePrompt = 'digital painting, blended colors, soft brush strokes';
+            break;
+        case 'pencil-sketch':
+            stylePrompt = 'pencil sketch, black and white, detailed shading';
+            break;
+        case 'watercolor':
+            stylePrompt = 'watercolor painting, soft edges, translucent colors';
+            break;
+        case 'oil-painting':
+            stylePrompt = 'oil painting, textured canvas, rich colors';
+            break;
+        case 'pixel-art':
+            stylePrompt = 'pixel art, retro game style, limited color palette';
+            break;
+        case 'comic-book':
+            stylePrompt = 'comic book style, bold outlines, flat colors, action lines';
+            break;
+        case 'low-poly':
+            stylePrompt = 'low poly 3D render, geometric shapes, flat shading';
+            break;
+        case 'claymation':
+            stylePrompt = 'claymation style, stop motion, textured clay look';
+            break;
+        default:
+            stylePrompt = 'photorealistic, highly detailed';
+    }
+    const [width, height] = sizeSelect.value.split('x').map(Number);
     const response = await fetch(
         "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0",
         {
@@ -22,12 +61,12 @@ async function query(prompt, style, size) {
             },
             method: "POST",
             body: JSON.stringify({
-                "inputs": inputTxt.value + ", " + style + ", " + size
+                "inputs": `${prompt}, ${stylePrompt}, high quality, detailed`,
+                "parameters": { "width": width, "height": height },
             })
         }
     );
-    const result = await response.blob();
-    return result;
+    return await response.blob();
 }
 
 function showLoading() {
@@ -45,9 +84,9 @@ generateBtn.addEventListener("click", async function () {
         alert("Please enter a text prompt.");
         return;
     }
-
+    
     showLoading();
-
+    
     try {
         const response = await query(inputTxt.value, styleSelect.value, sizeSelect.value);
         const objectURL = URL.createObjectURL(response);
@@ -64,7 +103,7 @@ downloadBtn.addEventListener("click", function() {
     if (image.src) {
         const a = document.createElement("a");
         a.href = image.src;
-        a.download = "generated-image.png";
+        a.download = "nexgen-ai-image.png";
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -74,8 +113,8 @@ downloadBtn.addEventListener("click", function() {
 shareBtn.addEventListener("click", function() {
     if (image.src && navigator.share) {
         navigator.share({
-            title: 'Generated Image',
-            text: 'Check out this AI-generated image!',
+            title: 'NexGen AI Generated Image',
+            text: 'Check out this futuristic AI-generated masterpiece!',
             url: image.src
         }).then(() => console.log('Successful share'))
         .catch((error) => console.log('Error sharing:', error));
@@ -84,17 +123,12 @@ shareBtn.addEventListener("click", function() {
     }
 });
 
-aboutLink.addEventListener("click", function(e) {
-    e.preventDefault();
-    aboutModal.classList.remove("hidden");
+// Add some futuristic flair to the input field
+inputTxt.addEventListener("focus", function() {
+    this.style.boxShadow = "0 0 20px var(--primary-color)";
 });
 
-closeModal.addEventListener("click", function() {
-    aboutModal.classList.add("hidden");
+inputTxt.addEventListener("blur", function() {
+    this.style.boxShadow = "none";
 });
 
-window.addEventListener("click", function(event) {
-    if (event.target == aboutModal) {
-        aboutModal.classList.add("hidden");
-    }
-});

@@ -3,54 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Image Generator</title>
+    <title>AI Image Generater</title>
     <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 <body>
-    <header>
-        <h1>AI Image Generator</h1>
-        <p>Create stunning images from text prompts using AI</p>
-    </header>
-    <main>
-        <div class="input-container">
-            <input type="text" id="input" placeholder="Enter your image description...">
-            <button id="generate_btn"><i class="fas fa-magic"></i> Generate</button>
-        </div>
-        <div class="options-container">
-            <select id="style-select">
-                <option value="default">Default Style</option>
-                <option value="realistic">Realistic</option>
-                <option value="cartoon">Cartoon</option>
-                <option value="abstract">Abstract</option>
-            </select>
-            <select id="size-select">
-                <option value="854x480">480p</option>
-                <option value="1280x720">720p</option>
-                <option value="1920x1080">1080p</option>
-            </select>
-        </div>
-        <div class="image-container hidden">
-            <img id="image" src="" alt="Generated Image">
-            <div class="image-actions">
-                <button id="download-btn"><i class="fas fa-download"></i> Download</button>
-                <button id="share-btn"><i class="fas fa-share-alt"></i> Share</button>
+    <div class="container">
+        <header>
+            <h1><span class="accent">AI</span> Image Generater</h1>
+            <p>Create, Generate, Inspire with AI</p>
+        </header>
+        <main>
+            <div class="content-panel">
+                <div class="input-container">
+                    <input type="text" id="input" placeholder="Describe your vision...">
+                    <button class="generate_btn" id="generate_btn"><i class="fas fa-sparkles"></i>Generate</button>
+                </div>
+                <div class="options-container">
+                    <select id="style-select">
+                        <option value="realistic">Photorealistic</option>
+                        <option value="cartoon">Cartoon</option>
+                        <option value="anime">Anime</option>
+                        <option value="3d-render">3D Render</option>
+                        <option value="digital-painting">Digital Painting</option>
+                        <option value="pencil-sketch">Pencil Sketch</option>
+                        <option value="watercolor">Watercolor</option>
+                        <option value="oil-painting">Oil Painting</option>
+                        <option value="pixel-art">Pixel Art</option>
+                        <option value="comic-book">Comic Book</option>
+                        <option value="low-poly">Low Poly 3D</option>
+                        <option value="claymation">Claymation</option>
+                    </select>
+                    <select id="size-select">
+                        <option value="512x512">Square (512x512)</option>
+                        <option value="1024x1024">Large Square (1024x1024)</option>
+                        <option value="1280x720">HD (1280x720)</option>
+                        <option value="1920x1080">Full HD (1920x1080)</option>
+                        <option value="2560x1440">2K (2560x1440)</option>
+                        <option value="3840x2160">4K (3840x2160)</option>
+                        <option value="1080x1920">Portrait HD (1080x1920)</option>
+                        <option value="1200x628">Social Media (1200x628)</option>
+                        <option value="1080x1080">Instagram Square (1080x1080)</option>
+                    </select>
+                </div>
+                <div class="image-container hidden">
+                    <img id="image" src="" alt="AI Synthesized Artwork">
+                    <div class="image-actions">
+                        <button id="download-btn"><i class="fas fa-download"></i> Capture</button>
+                        <button id="share-btn"><i class="fas fa-share-alt"></i> Spread</button>
+                    </div>
+                </div>
+                <div id="loading" class="hidden">
+                    <div class="spinner"></div>
+                    <p>Generating image...</p>
+                </div>
             </div>
-        </div>
-        <div id="loading" class="hidden">
-            <div class="spinner"></div>
-            <p>Generating your image...</p>
-        </div>
-    </main>
-    <footer>
-        <p>Created by <a href="https://muhammadhashir.netlify.app" target="_blank">Muhammad Hashir</a></p>
-    </footer>
-    <div id="about-modal" class="modal hidden">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>About AI Image Generator</h2>
-            <p>This tool uses advanced AI to generate images based on your text descriptions. Simply enter a prompt, choose your preferences, and watch as AI brings your ideas to life!</p>
-        </div>
+        </main>
+        <footer>
+            <p>Note : If the image is not generated, try again. Ai can make mistakes.</p>
+            <p>Crafted by <a href="https://muhammadhashir.netlify.app" target="_blank">Muhammad Hashir</a></p>
+        </footer>
     </div>
     <script src="./script.js"></script>
 </body>
